@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+    <title>Statistics</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+
+<body class="marg">
+<h1>Log statistics</h1>
+
+File: $file<br/>
+Request count: $count
+
+
+<h2>Browser usage</h2>
+<div class="center">
+<table class="table table-condensed table-striped">
+    <tr><th>Browser</th><th>Count</th><th>Percentage</th></tr>
+    #foreach ($mapEntry in $browsers.entrySet())
+        <tr>
+            <td>$mapEntry.key</td>
+            <td>$mapEntry.value</td>
+            <td>$tool.formatPercent($mapEntry.value, $count)%</td>
+        </tr>
+    #end
+</table>
+</div>
+
+<h2>OS usage</h2>
+<div class="center">
+<table class="table table-condensed table-striped">
+    <tr><th>OS</th><th>Count</th><th>Percentage</th></tr>
+    #foreach ($mapEntry in $os.entrySet())
+        <tr>
+            <td>$mapEntry.key</td>
+            <td>$mapEntry.value</td>
+            <td>$tool.formatPercent($mapEntry.value, $count)%</td>
+        </tr>
+    #end
+</table>
+</div>
+
+<h2>Top 10 resources</h2>
+<div class="center">
+    <table class="table table-condensed table-striped">
+        <tr><th>Resource</th><th>Count</th><th>Percentage</th></tr>
+        #foreach ($mapEntry in $resources.entrySet())
+        #if( $velocityCount > 10 )
+            #break
+        #end
+            <tr>
+                <td>$mapEntry.key</td>
+                <td>$mapEntry.value</td>
+                <td>$tool.formatPercent($mapEntry.value, $count)%</td>
+            </tr>
+        #end
+    </table>
+</div>
+
+</body>
+</html>
+
+
