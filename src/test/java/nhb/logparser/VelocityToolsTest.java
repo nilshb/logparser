@@ -3,6 +3,7 @@ package nhb.logparser;
 
 import junit.framework.Assert;
 import org.junit.Test;
+import java.text.DecimalFormatSymbols;
 
 public class VelocityToolsTest {
 
