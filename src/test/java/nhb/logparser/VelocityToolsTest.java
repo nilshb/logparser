@@ -8,7 +8,9 @@ public class VelocityToolsTest {
 
     @Test
     public void formatPercent_shouldReturnXasPercentOfY(){
-        Assert.assertTrue(VelocityTools.formatPercent(42, 4242).equals("0.99"));
+        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+        char sep = dfs.getDecimalSeparator();
+        Assert.assertTrue(VelocityTools.formatPercent(42, 4242).equals("0" + sep + "99"));
     }
 
 }
