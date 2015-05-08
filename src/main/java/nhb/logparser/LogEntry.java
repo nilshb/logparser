@@ -12,6 +12,8 @@ public class LogEntry {
     private int responseSize;
     private String referer;
     private String userAgent;
+    private String browser;
+    private String os;
     private String cookie;
 
 
@@ -85,6 +87,14 @@ public class LogEntry {
 
     public void setUserAgent(String userAgent) {
         this.userAgent = userAgent;
+    }
+
+    public String getBrowser() {
+        return browser;
+    }
+
+    public void setBrowser(String browser) {
+        this.browser = browser;
     }
 
     public String getCookie() {
