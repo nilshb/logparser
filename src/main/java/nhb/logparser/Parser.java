@@ -17,7 +17,7 @@ public class Parser {
             "(\\d+|\\-) \"(.+?)\" \"(.+?)\" \"(.+?)\"";
     private static final Pattern logPattern = Pattern.compile(logRegex);
 
-    private LogEntry splitt(String line) {
+    private LogEntry createLogEntry(String line) {
         Matcher matcher = logPattern.matcher(line);
         if (!matcher.matches() || FIELD_COUNT != matcher.groupCount()) {
             throw new IllegalArgumentException("log line has unexpected format: \n" + line);
@@ -45,8 +45,7 @@ public class Parser {
             bufferedReader = new BufferedReader(new FileReader(filename));
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                LogEntry logEntry = splitt(line);
-                logEntries.add(logEntry);
+                logEntries.add(createLogEntry(line));
             }
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);

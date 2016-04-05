@@ -16,15 +16,14 @@ public class Main {
         System.exit(0);
     }
 
-    private static Stats generateStats(String logFile) {
+    private static Stats createStats(String logFile) {
         Repository repository = new RepositoryJson();
         List<LogEntry> logEntries;
 
         if (repository.exists(logFile)) {
             logEntries = repository.load(logFile);
         } else {
-            Parser parser = new Parser();
-            logEntries = parser.readFile(logFile);
+            logEntries = new Parser().readFile(logFile);
             repository.save(logEntries, logFile);
         }
 
@@ -54,7 +53,7 @@ public class Main {
             parseArgs(args);
         }
 
-        Stats stats = generateStats(logFile);
+        Stats stats = createStats(logFile);
         if (port != null) {
             StatsServer statsServer = new StatsServer(stats);
             statsServer.start(port);
