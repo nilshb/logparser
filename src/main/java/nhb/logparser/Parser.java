@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 public class Parser {
 
     private static final int FIELD_COUNT = 10;
-    private static final String logRegex = "^([\\d\\.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d+) (\\d+|\\-) \"(.+?)\" \"(.+?)\" \"(.+?)\"";
+    private static final String logRegex = "^([\\d\\.]+) (\\S+) (\\S+) \\[([\\w:/]+\\s[+\\-]\\d{4})\\] \"(.+?)\" (\\d+) " +
+            "(\\d+|\\-) \"(.+?)\" \"(.+?)\" \"(.+?)\"";
     private static final Pattern logPattern = Pattern.compile(logRegex);
 
     private LogEntry splitt(String line) {
@@ -23,16 +24,16 @@ public class Parser {
         }
 
         LogEntry logEntry = new LogEntry();
-        logEntry.setRemoteHost(matcher.group(1));
-        logEntry.setServerName(matcher.group(2));
-        logEntry.setRemoteUser(matcher.group(3));
-        logEntry.setTimestamp(matcher.group(4));
-        logEntry.setRequest(matcher.group(5));
-        logEntry.setStatus(Integer.parseInt(matcher.group(6)));
-        logEntry.setResponseSize(matcher.group(7).equals("-") ? 0 : Integer.parseInt(matcher.group(7)));
-        logEntry.setReferer(matcher.group(8));
-        logEntry.setUserAgent(matcher.group(9));
-        logEntry.setCookie(matcher.group(10));
+        logEntry.remoteHost = matcher.group(1);
+        logEntry.serverName = matcher.group(2);
+        logEntry.remoteUser = matcher.group(3);
+        logEntry.timestamp = matcher.group(4);
+        logEntry.request = matcher.group(5);
+        logEntry.status = Integer.parseInt(matcher.group(6));
+        logEntry.responseSize = matcher.group(7).equals("-") ? 0 : Integer.parseInt(matcher.group(7));
+        logEntry.referer = matcher.group(8);
+        logEntry.userAgent = matcher.group(9);
+        logEntry.cookie = matcher.group(10);
 
         return logEntry;
     }
@@ -49,11 +50,11 @@ public class Parser {
             }
         } catch (IOException ioe) {
             throw new UncheckedIOException(ioe);
-        }
-        finally {
+        } finally {
             try {
                 if (bufferedReader != null) bufferedReader.close();
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
 
         return logEntries;

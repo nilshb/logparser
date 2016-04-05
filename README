@@ -10,9 +10,6 @@ logparser to reparse the log file.
 If given a port number as argument logparser will run as a http server. You can
 access log statistics at: http://localhost:<port>/stats
 
-Prerequisites
-------------------------
-Java 8 and maven
 
 Build deployment package
 ------------------------
@@ -28,4 +25,3 @@ java -jar target\logparser-<version>-jar-with-dependencies.jar [file=<file name>
 
 Example:
 java -jar target/logparser-1.0-SNAPSHOT-jar-with-dependencies.jar port=4242
-

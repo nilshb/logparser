@@ -25,7 +25,7 @@ public class Stats {
     public Map<String, Integer> getBrowserUsage() {
         HashMap<String, Integer> browsers = new HashMap<>();
         for (LogEntry entry : logEntries) {
-            String browserName = new UserAgentParser(entry.getUserAgent()).getBrowserName();
+            String browserName = new UserAgentParser(entry.userAgent).getBrowserName();
             if (browserName == null) browserName = "-";
             if (browsers.containsKey(browserName)) {
                 browsers.put(browserName, browsers.get(browserName)+1);
@@ -39,7 +39,7 @@ public class Stats {
     public Map<String, Integer> getOsUsage() {
         HashMap<String, Integer> os = new HashMap<>();
         for (LogEntry entry : logEntries) {
-            String osName = new UserAgentParser(entry.getUserAgent()).getBrowserOperatingSystem();
+            String osName = new UserAgentParser(entry.userAgent).getBrowserOperatingSystem();
             if (osName == null) osName = "-";
             if (os.containsKey(osName)) {
                 os.put(osName, os.get(osName)+1);
@@ -53,7 +53,7 @@ public class Stats {
     public Map<String, Integer> getResourceUsage() {
         HashMap<String, Integer> resources = new HashMap<>();
         for (LogEntry entry : logEntries) {
-            String request = entry.getRequest();
+            String request = entry.request;
             String resFound = "-";
             String[] resArray = request.split(" ");
             if (resArray.length == 3) {
@@ -70,7 +70,7 @@ public class Stats {
         return sortByValue(resources);
     }
 
-    public static Map<String, Integer> sortByValue(Map<String, Integer> map) {
+    private static Map<String, Integer> sortByValue(Map<String, Integer> map) {
         List<Map.Entry<String, Integer>> list = new LinkedList<>(map.entrySet());
         Collections.sort(list, (m1, m2) -> (m2.getValue()).compareTo(m1.getValue()));
         Map<String, Integer> result = new LinkedHashMap<>();
@@ -79,8 +79,5 @@ public class Stats {
         }
         return result;
     }
-
-
-
 
 }

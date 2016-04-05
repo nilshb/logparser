@@ -49,19 +49,17 @@ public class StatsTest {
 
     private Stats createDummyStats() {
         LogEntry stat1 = new LogEntry();
-        stat1.setUserAgent("Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)");
-        stat1.setRequest("GET /api/internal/rest/v1/utils/hash?list= HTTP/1.1");
+        stat1.userAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)";
+        stat1.request = "GET /api/internal/rest/v1/utils/hash?list= HTTP/1.1";
         LogEntry stat2 = new LogEntry();
-        stat2.setUserAgent("Mozilla/5.0 (Windows NT 6.1; rv:18.0) Gecko/20100101 Firefox/18.0");
-        stat2.setRequest("POST /web/produsent/velg.page?pageId=190 HTTP/1.1");
+        stat2.userAgent = "Mozilla/5.0 (Windows NT 6.1; rv:18.0) Gecko/20100101 Firefox/18.0";
+        stat2.request = "POST /web/produsent/velg.page?pageId=190 HTTP/1.1";
+
         List<LogEntry> logEntries = new ArrayList<>();
         logEntries.add(stat1);
         logEntries.add(stat2);
 
-        Stats stats = new Stats(logEntries, "dummy.log");
-
-        return stats;
-
+        return new Stats(logEntries, "dummy.log");
     }
 
 }

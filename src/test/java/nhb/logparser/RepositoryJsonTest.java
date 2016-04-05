@@ -10,23 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PersistenceWithJsonTest {
+public class RepositoryJsonTest {
 
-    private Persistence persistence;
+    private Repository persistence;
     private String file;
 
     @Before
     public void init() {
-        persistence = new PersistenceWithJson();
+        persistence = new RepositoryJson();
         file = getClass().getClassLoader().getResource("sample.mini.log").getFile();
     }
 
     @Test
     public void saveAndload_shouldSaveAndLoadLogEntries() {
         LogEntry toPersistence1 = new LogEntry();
-        toPersistence1.setRemoteUser("foo");
+        toPersistence1.remoteUser = "foo";
         LogEntry toPersistence2 = new LogEntry();
-        toPersistence2.setRequest("bar");
+        toPersistence2.request = "bar";
 
         List<LogEntry> logEntries = new ArrayList<>();
         logEntries.add(toPersistence1);
@@ -39,8 +39,8 @@ public class PersistenceWithJsonTest {
         LogEntry fromPersistence1 = logEntriesFromPersistence.get(0);
         LogEntry fromPersistence2 = logEntriesFromPersistence.get(1);
 
-        Assert.assertEquals("foo", fromPersistence1.getRemoteUser());
-        Assert.assertEquals("bar", fromPersistence2.getRequest());
+        Assert.assertEquals("foo", fromPersistence1.remoteUser);
+        Assert.assertEquals("bar", fromPersistence2.request);
     }
 
     @After
