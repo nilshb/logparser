@@ -35,12 +35,10 @@ public class RepositoryJsonTest {
         repository.save(logEntries, file);
 
         List<LogEntry> logEntriesFromPersistence = repository.load(file);
-        Assert.assertTrue(logEntriesFromPersistence.size() == 2);
-        LogEntry fromPersistence1 = logEntriesFromPersistence.get(0);
-        LogEntry fromPersistence2 = logEntriesFromPersistence.get(1);
 
-        Assert.assertEquals("foo", fromPersistence1.remoteUser);
-        Assert.assertEquals("bar", fromPersistence2.request);
+        Assert.assertEquals(2, logEntriesFromPersistence.size());
+        Assert.assertEquals("foo", logEntriesFromPersistence.get(0).remoteUser);
+        Assert.assertEquals("bar", logEntriesFromPersistence.get(1).request);
     }
 
     @After

@@ -11,43 +11,38 @@ public class StatsTest {
 
     @Test
     public void stats_shouldReturnFilename() {
-        Stats stats = createDummyStats();
-        Assert.assertTrue(stats.getFilename().equals("dummy.log"));
+        Assert.assertTrue(dummyStats().getFilename().equals("dummy.log"));
     }
 
     @Test
     public void stats_shouldReturnRequestCount() {
-        Stats stats = createDummyStats();
-        Assert.assertTrue(stats.getRequestCount() == 2);
+        Assert.assertEquals(2, dummyStats().getRequestCount());
     }
 
     @Test
     public void getBrowserUsage_shouldReturnBrowserCount() {
-        Stats stats = createDummyStats();
-        Map<String, Integer> browsers = stats.getBrowserUsage();
-        Assert.assertTrue(browsers.size() == 2);
-        Assert.assertTrue(browsers.get("Firefox") == 1);
-        Assert.assertTrue(browsers.get("MSIE") == 1);
+        Map<String, Integer> browsers = dummyStats().getBrowserUsage();
+        Assert.assertEquals(2, browsers.size());
+        Assert.assertEquals(1, (int) browsers.get("Firefox"));
+        Assert.assertEquals(1, (int) browsers.get("MSIE"));
     }
 
     @Test
     public void getOsUsage_shoulReturnOsCount() {
-        Stats stats = createDummyStats();
-        Map<String, Integer> oses = stats.getOsUsage();
-        Assert.assertTrue(oses.size() == 1);
-        Assert.assertTrue(oses.get("Windows NT 6.1") == 2);
+        Map<String, Integer> oses = dummyStats().getOsUsage();
+        Assert.assertEquals(1, oses.size());
+        Assert.assertEquals(2, (int) oses.get("Windows NT 6.1"));
     }
 
     @Test
     public void getResourceUsage_shouldReturnResourceCount() {
-        Stats stats = createDummyStats();
-        Map<String, Integer> resources = stats.getResourceUsage();
-        Assert.assertTrue(resources.size() == 2);
-        Assert.assertTrue(resources.get("/api/internal/rest/v1/utils/hash") == 1);
-        Assert.assertTrue(resources.get("/web/produsent/velg.page") == 1);
+        Map<String, Integer> resources = dummyStats().getResourceUsage();
+        Assert.assertEquals(2, resources.size());
+        Assert.assertEquals(1, (int) resources.get("/api/internal/rest/v1/utils/hash"));
+        Assert.assertEquals(1, (int) resources.get("/web/produsent/velg.page"));
     }
 
-    private Stats createDummyStats() {
+    private static Stats dummyStats() {
         LogEntry stat1 = new LogEntry();
         stat1.userAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)";
         stat1.request = "GET /api/internal/rest/v1/utils/hash?list= HTTP/1.1";
