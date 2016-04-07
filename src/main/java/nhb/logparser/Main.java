@@ -16,20 +16,6 @@ public class Main {
         System.exit(0);
     }
 
-    private static Stats createStats(String logFile) {
-        Repository repository = new RepositoryJson();
-        List<LogEntry> logEntries;
-
-        if (repository.exists(logFile)) {
-            logEntries = repository.load(logFile);
-        } else {
-            logEntries = new Parser().readFile(logFile);
-            repository.save(logEntries, logFile);
-        }
-
-        return new Stats(logEntries, logFile);
-    }
-
     private static void parseArgs(String[] args) {
         Arrays.stream(args).filter(x -> x.matches("\\S+=\\S+")).forEach(x -> {
             String[] keyval = x.split("=");
@@ -45,7 +31,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        if (args.length == 1 && args[0].endsWith("help")) {
+        if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
             printHelpExit();
         }
 
@@ -53,9 +39,18 @@ public class Main {
             parseArgs(args);
         }
 
-        Stats stats = createStats(logFile);
+        Repository repository = new RepositoryJson();
+        List<LogEntry> logEntries;
+
+        if (repository.exists(logFile)) {
+            logEntries = repository.load(logFile);
+        } else {
+            logEntries = new Parser().readFile(logFile);
+            repository.save(logEntries, logFile);
+        }
+
         if (port != null) {
-            StatsServer statsServer = new StatsServer(stats);
+            StatsServer statsServer = new StatsServer(new Stats(logEntries, logFile));
             statsServer.start(port);
         }
     }

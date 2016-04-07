@@ -7,6 +7,11 @@ import java.util.*;
 public class Stats {
 
     private List<LogEntry> logEntries;
+    private Map<String, Integer> browserUsage;
+    private Map<String, Integer> osUsage;
+    private Map<String, Integer> resourceUsage;
+
+
     private String filename;
 
     public Stats(List<LogEntry> logEntries, String filename) {
@@ -22,7 +27,9 @@ public class Stats {
         return logEntries.size();
     }
 
-    public Map<String, Integer> getBrowserUsage() {
+    public synchronized Map<String, Integer> getBrowserUsage() {
+        if (browserUsage != null) return browserUsage;
+
         HashMap<String, Integer> browsers = new HashMap<>();
         for (LogEntry entry : logEntries) {
             String browserName = new UserAgentParser(entry.userAgent).getBrowserName();
@@ -33,10 +40,14 @@ public class Stats {
                 browsers.put(browserName, 1);
             }
         }
-        return sortByValue(browsers);
+        browserUsage = sortByValue(browsers);
+
+        return browserUsage;
     }
 
-    public Map<String, Integer> getOsUsage() {
+    public synchronized Map<String, Integer> getOsUsage() {
+        if (osUsage != null) return osUsage;
+
         HashMap<String, Integer> os = new HashMap<>();
         for (LogEntry entry : logEntries) {
             String osName = new UserAgentParser(entry.userAgent).getBrowserOperatingSystem();
@@ -47,10 +58,14 @@ public class Stats {
                 os.put(osName, 1);
             }
         }
-        return sortByValue(os);
+        osUsage = sortByValue(os);
+
+        return osUsage;
     }
 
-    public Map<String, Integer> getResourceUsage() {
+    public synchronized Map<String, Integer> getResourceUsage() {
+        if (resourceUsage != null) return resourceUsage;
+
         HashMap<String, Integer> resources = new HashMap<>();
         for (LogEntry entry : logEntries) {
             String request = entry.request;
@@ -67,7 +82,9 @@ public class Stats {
                 resources.put(resFound, 1);
             }
         }
-        return sortByValue(resources);
+        resourceUsage = sortByValue(resources);
+
+        return resourceUsage;
     }
 
     private static Map<String, Integer> sortByValue(Map<String, Integer> map) {
