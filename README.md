@@ -1,10 +1,3 @@
-Build status
---------------------------------------------------------------------------------
-master:
-
-[![Build Status](https://semaphoreci.com/api/v1/nilshb/logparser/branches/master/badge.svg)](https://semaphoreci.com/nilshb/logparser)
-
-
 logparser
 --------------------------------------------------------------------------------
 
@@ -18,13 +11,22 @@ If given a port number as argument logparser will run as a http server. You can
 access log statistics at: http://localhost:<port>/stats
 
 
+Build status
+--------------------------------------------------------------------------------
+master:
+
+[![Build Status](https://semaphoreci.com/api/v1/nilshb/logparser/branches/master/badge.svg)](https://semaphoreci.com/nilshb/logparser)
+
+
 Build deployment package
 ------------------------
 mvn clean package
 
+
 Run tests
 ------------------------
 mvn test
+
 
 Run logparser
 ------------------------
