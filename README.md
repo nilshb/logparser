@@ -1,5 +1,4 @@
-logparser
---------------------------------------------------------------------------------
+## logparser
 
 logparser parses an apache httpd log and saves it in json format. If you do not
 give a file name as argument it will use the file "sample.log". The output file
@@ -11,25 +10,25 @@ If given a port number as argument logparser will run as a http server. You can
 access log statistics at: http://localhost:<port>/stats
 
 
-Build status
---------------------------------------------------------------------------------
+## Build status
+
 master:
 
 [![Build Status](https://semaphoreci.com/api/v1/nilshb/logparser/branches/master/badge.svg)](https://semaphoreci.com/nilshb/logparser)
 
 
-Build deployment package
-------------------------
+## Build deployment package
+
 mvn clean package
 
 
-Run tests
-------------------------
+## Run tests
+
 mvn test
 
 
-Run logparser
-------------------------
+## Run logparser
+
 java -jar target\logparser-<version>-jar-with-dependencies.jar [file=<file name>] [port=<server port>]
 
 Example:
